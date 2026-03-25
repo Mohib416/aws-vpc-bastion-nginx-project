@@ -1,21 +1,20 @@
-🏷️ AWS VPC Project 3 – Public & Private Subnet + Bastion Host + Nginx
+🚀 AWS VPC Project 3 – Public & Private Subnet + Bastion Host + Nginx
 📌 Project Overview
 
-In this project I built a simple but realistic AWS architecture using a custom VPC with public and private subnets.
+In this project, I built a more advanced AWS architecture using a custom VPC with public and private subnets.
 
-The goal was to understand how networking works in AWS and how to securely connect a private server using a public one (bastion host).
+The goal was to understand how AWS networking really works and how to securely access a private server using a public one (bastion host), just like in real-world scenarios.
 
-🛠️ Steps I Followed
-1) Creating the VPC
+⚙️ Step 1: Creating the VPC
 
-First of all, I created a VPC, which is basically my own private network in AWS.
+I started by creating my own VPC (Virtual Private Cloud), which is basically a private network in AWS.
 
 Name: mohib-vpc
 CIDR block: 10.0.0.0/16
 
-I chose /16 because it gives a large IP range. Even if this is just a project, it’s a good practice to start with a bigger range to avoid running out of IPs in the future and to keep scalability.
+I chose /16 because it provides a large IP range. Even though this is a project, it's a good practice to think about scalability from the beginning.
 
-2) Creating Subnets
+🌐 Step 2: Creating Subnets
 
 Then I created two subnets:
 
@@ -24,93 +23,102 @@ Private subnet → 10.0.2.0/24
 
 Each subnet is inside one Availability Zone.
 
-Why:
+Why I did this:
 
-I used 2 subnets to separate resources → better security
-/24 gives 256 IPs → more than enough for a subnet
-At this stage, the public subnet still cannot access the internet because we don’t have routing yet
-3) Internet Gateway
+Separating public and private resources improves security
+/24 gives 256 IPs, which is more than enough for a subnet
+At this point, the public subnet still had no internet access (no routing yet)
+🌍 Step 3: Internet Gateway
 
-Then I created an Internet Gateway (mohib-igw) and attached it to my VPC.
+I created an Internet Gateway (mohib-igw) and attached it to my VPC.
 
-This is basically the “door” that allows communication between my network and the internet.
+This acts like a bridge between my VPC and the internet.
 
-But at this point, it still doesn’t work because we need a route table.
+At this stage, it still didn’t work because a route table was missing.
 
-4) Route Table Configuration
+🔀 Step 4: Route Table Configuration
 
 I created a route table and associated it with the public subnet.
 
 Then I added:
 
-10.0.0.0/16 → local (internal communication inside VPC)
+10.0.0.0/16 → local (internal VPC communication)
 0.0.0.0/0 → Internet Gateway (internet access)
 
-Now the public subnet can finally access the internet.
+Now the public subnet could access the internet.
 
-The private subnet is NOT associated because it should stay isolated (for now). If needed, we could use a NAT Gateway.
+The private subnet was intentionally left isolated.
 
-5) Creating EC2 Public Instance
+🖥️ Step 5: Launching EC2 Public Instance
 
-Then I launched an EC2 instance in the public subnet.
+I launched an EC2 instance in the public subnet.
 
-Important configurations:
+Configuration:
 
-Auto-assign public IP → enabled
+Auto-assign Public IP → enabled
 Security Group:
-SSH (22) → for access from my computer
-HTTP (80) → to access the website
+SSH (22) → My IP
+HTTP (80) → 0.0.0.0/0
 
-This instance will act as both:
+This instance acts as:
 
 Web server (Nginx)
 Bastion host
-6) Installing Nginx and Deploying Website
+🧪 Step 6: Installing Nginx & Deploying Website
 
-I connected to the EC2 instance and:
+After connecting to the EC2 instance:
 
-Updated the system
-Installed Nginx
-Started and enabled the service
+sudo yum update -y
+sudo yum install nginx -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
-Then I opened the public IP in the browser and saw the Nginx default page → this confirmed everything was working.
+Then:
 
-After that, I edited the index.html file inside:
+I opened the public IP in the browser
+Saw the default Nginx page → confirmed it works
 
-/usr/share/nginx/html
+After that:
 
-I added my own HTML code and refreshed the browser → my custom page was live.
+cd /usr/share/nginx/html
+Edited index.html
+Added my custom HTML
+Refreshed the browser
 
-7) Creating Private EC2 + Troubleshooting (Real Experience)
+👉 My website was live
+
+🔐 Step 7: Private EC2 + Bastion Host (Troubleshooting)
 
 Then I created a second EC2 instance inside the private subnet (no public IP).
 
 The goal was:
 
-👉 Access it ONLY through the public EC2 (bastion host)
+👉 Access it only through the public EC2 (bastion host)
 
-At this point I spent a lot of time troubleshooting because SSH was not working.
+At this point, I spent a lot of time troubleshooting because SSH was not working.
 
-After debugging step by step, I found the real issue:
+After many tests and debugging, I found the real issue:
 
-👉 The Security Group of the private EC2 was misconfigured
+👉 The Security Group of the private EC2 was configured incorrectly
 
 Initially, I allowed SSH from anywhere, but that didn’t work properly in this architecture.
 
-The correct solution was:
+✅ Final Fix
+
+The correct configuration was:
 
 Private EC2 Security Group:
-Allow SSH (22) ONLY from the Security Group of the public EC2
+SSH (22) → Source: Security Group of public EC2
 
 This means:
 
-👉 Only the public EC2 (bastion) can connect to the private one
+👉 Only the public EC2 can connect to the private one
 
 After fixing this, the connection finally worked:
 
 ssh -i key.pem ec2-user@10.0.2.xxx
 
-This was a very important part because I learned how real troubleshooting works in AWS.
+This was the most important part of the project because I learned how real troubleshooting works in AWS.
 
 🧠 Architecture
 Internet
@@ -118,7 +126,8 @@ Internet
 [ EC2 Public (Nginx + Bastion Host) ]
    ↓
 [ EC2 Private ]
-🌐 Live Demo
+🌐 Live Website
+
 http://13.61.18.59
 
 ## 📸 Screenshots
@@ -165,3 +174,7 @@ How to deploy a web server with EC2 + Nginx
 How Security Groups control access
 How to connect to a private EC2 using a bastion host
 How to troubleshoot real AWS networking issues
+🔧 Problems Solved
+Fixed SSH access to private EC2 (Security Group misconfiguration)
+Understood how traffic flows between subnets
+Debugged networking issues step by step
