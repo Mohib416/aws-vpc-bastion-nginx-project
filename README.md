@@ -88,11 +88,11 @@ ssh -i key.pem ec2-user@10.0.2.xxx
 This was the most important part of the project because I learned how real troubleshooting works in AWS.
 
 ## 🧠 Architecture
-Internet
+ Internet
    ↓
-[ EC2 Public (Nginx + Bastion Host) ]
+ [ EC2 Public (Nginx + Bastion Host) ]
    ↓
-[ EC2 Private ]
+ [ EC2 Private ]
 
 ## 🌐 Live Website
 http://13.61.18.59
