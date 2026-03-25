@@ -1,4 +1,4 @@
-🚀 AWS VPC Project 3 – Public & Private Subnet + Bastion Host + Nginx
+#🚀 AWS VPC Project 3 – Public & Private Subnet + Bastion Host + Nginx
 📌 Project Overview
 
 In this project, I built a more advanced AWS architecture using a custom VPC with public and private subnets.
