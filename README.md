@@ -81,7 +81,6 @@ Initially, I allowed SSH from anywhere, but that didn’t work properly in this 
 The correct configuration was:
 Private EC2 Security Group:
 SSH (22) → Source: Security Group of public EC2
-
 This means:
 👉 Only the public EC2 can connect to the private one
 After fixing this, the connection finally worked:
@@ -146,3 +145,6 @@ How to troubleshoot real AWS networking issues
 Fixed SSH access to private EC2 (Security Group misconfiguration)
 Understood how traffic flows between subnets
 Debugged networking issues step by step
+
+## 👨‍💻 Author
+Muhammad Mohib
