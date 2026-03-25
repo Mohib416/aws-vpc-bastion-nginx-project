@@ -98,9 +98,9 @@ Internet
  [ EC2 Public (Nginx + Bastion Host) ]
      
  ↓
+ [ EC2 Private ] 
  
- 
- [ EC2 Private ] ![Architecture](screenshots/architecture.png)
+ ![Architecture](screenshots/architecture.png)
 
 ## 🌐 Live Website
 http://13.61.18.59
