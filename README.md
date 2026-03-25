@@ -140,6 +140,7 @@ http://13.61.18.59
 
 ## 🎯 What I Learned
 -How to create a VPC from scratch
+
 -Difference between public and private subnets
 
 -How Internet Gateway works
