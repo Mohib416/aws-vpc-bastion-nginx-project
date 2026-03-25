@@ -1,10 +1,11 @@
 # 🚀 AWS VPC Project 3 – Public & Private Subnet + Bastion Host + Nginx
-📌 Project Overview
+## 📌 Project Overview
 
 In this project, I built a more advanced AWS architecture using a custom VPC with public and private subnets.
 The goal was to understand how AWS networking really works and how to securely access a private server using a public one (bastion host), just like in real-world scenarios.
 
-⚙️ Step 1: Creating the VPC
+## ⚙️ Step 1
+Creating the VPC
 I started by creating my own VPC (Virtual Private Cloud), which is basically a private network in AWS.
 Name: mohib-vpc
 CIDR block: 10.0.0.0/16
