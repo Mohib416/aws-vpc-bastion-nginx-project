@@ -91,10 +91,7 @@ This was the most important part of the project because I learned how real troub
 
 ## 🧠 Architecture
 Internet
-    
-  ↓
-
- 
+     ↓
  [ EC2 Public (Nginx + Bastion Host) ]
      
  ↓
