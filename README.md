@@ -139,14 +139,14 @@ http://13.61.18.59
 ![Bastion Access](screenshots/11-bastion-success.png)
 
 ## 🎯 What I Learned
-How to create a VPC from scratch
-Difference between public and private subnets
-How Internet Gateway works
-How Route Tables control traffic
-How to deploy a web server with EC2 + Nginx
-How Security Groups control access
-How to connect to a private EC2 using a bastion host
-How to troubleshoot real AWS networking issues
+-How to create a VPC from scratch
+-Difference between public and private subnets
+-How Internet Gateway works
+-How Route Tables control traffic
+-How to deploy a web server with EC2 + Nginx
+-How Security Groups control access
+-How to connect to a private EC2 using a bastion host
+-How to troubleshoot real AWS networking issues
 🔧 Problems Solved
 Fixed SSH access to private EC2 (Security Group misconfiguration)
 Understood how traffic flows between subnets
