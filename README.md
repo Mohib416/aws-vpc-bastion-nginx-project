@@ -11,7 +11,8 @@ Name: mohib-vpc
 CIDR block: 10.0.0.0/16
 I chose /16 because it provides a large IP range. Even though this is a project, it's a good practice to think about scalability from the beginning.
 
-🌐 Step 2: Creating Subnets
+## 🌐 Step 2
+Creating Subnets
 Then I created two subnets:
 Public subnet → 10.0.1.0/24
 Private subnet → 10.0.2.0/24
@@ -22,12 +23,14 @@ Separating public and private resources improves security
 /24 gives 256 IPs, which is more than enough for a subnet
 At this point, the public subnet still had no internet access (no routing yet)
 
-🌍 Step 3: Internet Gateway
+## 🌍 Step 3
+Internet Gateway
 I created an Internet Gateway (mohib-igw) and attached it to my VPC.
 This acts like a bridge between my VPC and the internet.
 At this stage, it still didn’t work because a route table was missing.
 
-🔀 Step 4: Route Table Configuration
+## 🔀 Step 4
+Route Table Configuration
 I created a route table and associated it with the public subnet.
 Then I added:
 10.0.0.0/16 → local (internal VPC communication)
@@ -35,7 +38,8 @@ Then I added:
 Now the public subnet could access the internet.
 The private subnet was intentionally left isolated.
 
-🖥️ Step 5: Launching EC2 Public Instance
+## 🖥️ Step 5
+Launching EC2 Public Instance
 I launched an EC2 instance in the public subnet.
 Configuration:
 Auto-assign Public IP → enabled
@@ -46,7 +50,8 @@ This instance acts as:
 Web server (Nginx)
 Bastion host
 
-🧪 Step 6: Installing Nginx & Deploying Website
+## 🧪 Step 6
+Installing Nginx & Deploying Website
 After connecting to the EC2 instance:
 sudo yum update -y
 sudo yum install nginx -y
@@ -62,7 +67,8 @@ Added my custom HTML
 Refreshed the browser
 👉 My website was live
 
-🔐 Step 7: Private EC2 + Bastion Host (Troubleshooting)
+## 🔐 Step 7
+Private EC2 + Bastion Host (Troubleshooting)
 Then I created a second EC2 instance inside the private subnet (no public IP).
 The goal was:
 👉 Access it only through the public EC2 (bastion host)
@@ -71,7 +77,7 @@ After many tests and debugging, I found the real issue:
 👉 The Security Group of the private EC2 was configured incorrectly
 Initially, I allowed SSH from anywhere, but that didn’t work properly in this architecture.
 
-✅ Final Fix
+## ✅ Final Fix
 The correct configuration was:
 Private EC2 Security Group:
 SSH (22) → Source: Security Group of public EC2
@@ -82,14 +88,14 @@ After fixing this, the connection finally worked:
 ssh -i key.pem ec2-user@10.0.2.xxx
 This was the most important part of the project because I learned how real troubleshooting works in AWS.
 
-🧠 Architecture
+## 🧠 Architecture
 Internet
    ↓
 [ EC2 Public (Nginx + Bastion Host) ]
    ↓
 [ EC2 Private ]
 
-🌐 Live Website
+## 🌐 Live Website
 http://13.61.18.59
 
 ## 📸 Screenshots
@@ -127,7 +133,7 @@ http://13.61.18.59
 ### Bastion Access
 ![Bastion Access](screenshots/11-bastion-success.png)
 
-🎯 What I Learned
+## 🎯 What I Learned
 How to create a VPC from scratch
 Difference between public and private subnets
 How Internet Gateway works
