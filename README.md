@@ -101,6 +101,7 @@ Internet
  
  
  [ EC2 Private ]
+ ![Architecture](screenshots/architecture.png)
 
 ## 🌐 Live Website
 http://13.61.18.59
