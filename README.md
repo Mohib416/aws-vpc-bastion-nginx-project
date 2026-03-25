@@ -93,9 +93,11 @@ This was the most important part of the project because I learned how real troub
 Internet
  
  ↓
+
  [ EC2 Public (Nginx + Bastion Host) ]
      
  ↓
+
  [ EC2 Private ] 
  
  ![Architecture](screenshots/architecture.png)
