@@ -89,7 +89,8 @@ After fixing this, the connection finally worked:
 ssh -i key.pem ec2-user@10.0.2.xxx
 This was the most important part of the project because I learned how real troubleshooting works in AWS.
 
-## 🧠 Architecture
+## 🏗️ Architecture Diagram
+
 Internet
  
  ↓
